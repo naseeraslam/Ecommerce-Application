@@ -1,0 +1,5 @@
+ <%= form_with model:[@product,@comment],remote:false do|form| %>
+  <%= form.text_area :feedback, class: "form-control",placeholder:"Write comment here" %>
+  <br>
+  <%= form.submit 'Update',class:"btn btn-dark" %>
+<% end %>

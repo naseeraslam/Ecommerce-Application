@@ -1,0 +1,31 @@
+<section   class="mb-5">
+  <div class="container">
+    <div class="row d-flex justify-content-center align-items-center ">
+      <div class="col-xl-9">
+        <h3 class="text-black mb-4">Forgot your password?</h3>
+        <div class="card" style="border-radius: 15px;">
+          <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+            <%= render "devise/shared/error_messages", resource: resource %>
+            <div class="card-body">
+              <div class="row align-items-center pt-4 pb-3">
+                <div class="col-md-3 ps-5">
+                  <h6 class="mb-0">Email</h6>
+                </div>
+                <div class="col-md-9 pe-5">
+                  <%= f.email_field :email, autofocus: true, autocomplete: "email",class:"form-control form-control-lg" %>
+                </div>
+              </div>
+              <div class="px-5 py-4 actions">
+                <%= f.submit "Send me reset password instructions",class:"btn btn-dark btn-lg float-start"  %>
+              </div>
+            </div>
+          <% end %>
+          <hr class="mx-n3">
+          <div class="col-12 m-4">
+            <h5 class="text-center mb-0"><%= render "devise/shared/links" %></h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

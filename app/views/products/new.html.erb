@@ -1,0 +1,70 @@
+<section  style="background-color: #eee;" class="mb-5">
+  <div class="container">
+    <div class="row d-flex justify-content-center align-items-center ">
+      <div class="col-xl-9">
+        <h1 class="text-black mb-4">Add a product</h1>
+        <div class="card" style="border-radius: 15px;">
+          <%= form_with url: {action: :create},scope: :product do |f| %>
+            <% if current_user  %>
+              <div class="card-body">
+                <div class="row align-items-center pt-4 pb-3">
+                  <div class="col-md-3 ps-5">
+                    <h6 class="mb-0">Product Name</h6>
+                  </div>
+                  <div class="col-md-9 pe-5">
+                    <%= f.text_field :product_name,class:"form-control form-control-lg" %>
+                  </div>
+                </div>
+                <hr class="mx-n3">
+                <div class="row align-items-center py-3">
+                  <div class="col-md-3 ps-5">
+                    <h6 class="mb-0">Price</h6>
+                  </div>
+                  <div class="col-md-9 pe-5">
+                    <%= f.number_field :product_price,class:"form-control form-control-lg", min:"1", max:"100000" %>
+                  </div>
+                </div>
+                <hr class="mx-n3">
+                <div class="row align-items-center py-3">
+                  <div class="col-md-3 ps-5">
+                    <h6 class="mb-0">Description</h6>
+                  </div>
+                  <div class="col-md-9 pe-5">
+                    <%= f.text_area :product_description,class:"form-control" %>
+                  </div>
+                </div>
+                <%= f.hidden_field :product_serial_number, value: "#{SecureRandom.uuid}" %>
+                <hr class="mx-n3">
+                <div class="row align-items-center py-3">
+                  <div class="col-md-3 ps-5">
+                    <h6 class="mb-0">Quantity</h6>
+                  </div>
+                  <div class="col-md-9 pe-5">
+                    <%= f.number_field :quantity,class:"form-control form-control-lg",min:"1", max:"10000000" %>
+                  </div>
+                </div>
+                <hr class="mx-n3">
+                <div class="row align-items-center py-3">
+                  <div class="col-md-3 ps-5">
+                    <h6 class="mb-0">Upload Image</h6>
+                  </div>
+                  <div class="col-md-9 pe-5">
+                    <%= f.file_field :images,class:"form-control form-control-lg" , :multiple =>true%>
+                    <div class="small text-muted mt-2">Upload your product Image. Max file size 5 MB</div>
+                  </div>
+                </div>
+                <hr class="mx-n3">
+                <div class="px-5 py-4">
+                  <%= f.submit 'Create Product',class:"btn btn-dark btn-lg float-start" %>
+                </div>
+                <div class="px-5 py-4 mt-4">
+                  <%= link_to 'Back', { controller: 'products', action: 'index'},class:"btn btn-primary btn-lg" %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

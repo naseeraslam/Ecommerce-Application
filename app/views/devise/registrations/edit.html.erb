@@ -1,0 +1,95 @@
+<section  style="background-color: #eee;" class="mb-5">
+  <div class="container">
+    <div class="row d-flex justify-content-center align-items-center ">
+      <div class="col-xl-9">
+        <div class="card" style="border-radius: 15px;">
+          <h2>Edit <%= resource_name.to_s.humanize %></h2>
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+            <%= render "devise/shared/error_messages", resource: resource %>
+            <div class="card-body">
+              <div class="row align-items-center pt-4 pb-3">
+                <div class="col-md-3 ps-5">
+                  <h6 class="mb-0">First Name</h6>
+                </div>
+                <div class="col-md-9 pe-5">
+                  <%= f.text_field :first_name, autofocus: true,class:"form-control form-control-lg" %>
+                </div>
+              </div>
+              <hr class="mx-n3">
+              <div class="row align-items-center py-3">
+                <div class="col-md-3 ps-5">
+                  <h6 class="mb-0">Last Name</h6>
+                </div>
+                <div class="col-md-9 pe-5">
+                  <%= f.text_field :last_name, autofocus: true,class:"form-control form-control-lg" %>
+                </div>
+              </div>
+              <hr class="mx-n3">
+              <div class="row align-items-center py-3">
+                <div class="col-md-3 ps-5">
+                  <h6 class="mb-0">Upload Image</h6>
+                </div>
+                <div class="col-md-9 pe-5">
+                  <%= f.file_field :avatar,class:"form-control form-control-lg" %>
+                  <div class="small text-muted mt-2">Upload your profile Image. Max file size 5 MB</div>
+                </div>
+              </div>
+              <hr class="mx-n3">
+              <div class="row align-items-center py-3">
+                <div class="col-md-3 ps-5">
+                  <h6 class="mb-0">Email</h6>
+                </div>
+                <div class="col-md-9 pe-5">
+                  <%= f.email_field :email, autofocus: true, autocomplete: "email",class:"form-control" %>
+                </div>
+              </div>
+              <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+              <% end %>
+              <hr class="mx-n3">
+              <div class="row align-items-center py-3">
+                <div class="col-md-3 ps-5">
+                  <h6 class="mb-0">Password</h6>
+                  <i>(leave blank if you don't want to change it)</i>
+                </div>
+                <div class="col-md-9 pe-5">
+                  <%= f.password_field :password, autocomplete: "new-password",class:"form-control form-control-lg" %>
+                  <% if @minimum_password_length %>
+                    <em>(<%= @minimum_password_length %> characters minimum)</em>
+                  <% end %>
+                </div>
+              </div>
+              <hr class="mx-n3">
+              <div class="row align-items-center py-3">
+                <div class="col-md-3 ps-5">
+                  <h6 class="mb-0">Password Confirmation</h6>
+                </div>
+                <div class="col-md-9 pe-5">
+                  <%= f.password_field :password_confirmation, autocomplete: "new-password",class:"form-control"  %>
+                </div>
+              </div>
+              <hr class="mx-n3">
+              <div class="row align-items-center py-3">
+                <div class="col-md-3 ps-5">
+                  <h6 class="mb-0">Current Password </h6>
+                </div>
+                <div class="col-md-9 pe-5">
+                  <%= f.password_field :current_password, autocomplete: "current-password" ,class:"form-control"  %>
+                </div>
+              </div>
+              <div class="field">
+                <hr class="mx-n3">
+                <div class="px-5 py-4 actions">
+                  <%= f.submit "Update",class:"btn btn-success btn-lg float-start"  %>
+                </div>
+              </div>
+            <% end %>
+            <hr class="mx-n3 mt-5">
+            <h3 class="text-black mb-4">Cancel my account</h3>
+            <p class="text-black mb-4">Unhappy? <%= button_to "Delete", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete,class:"btn btn-lg  btn-danger" %></p>
+            <%= link_to "Back", :back,class:"btn btn-primary " %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

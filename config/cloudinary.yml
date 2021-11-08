@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: drbhvakmc
+  api_key: '636232819675256'
+  api_secret: _IKFCAQr9uyNhWiS89-I7Pkq1g8
+  enhance_image_tag: true
+  static_file_support: false
+production:
+  cloud_name: drbhvakmc
+  api_key: '636232819675256'
+  api_secret: _IKFCAQr9uyNhWiS89-I7Pkq1g8
+  enhance_image_tag: true
+  static_file_support: true
+test:
+  cloud_name: drbhvakmc
+  api_key: '636232819675256'
+  api_secret: _IKFCAQr9uyNhWiS89-I7Pkq1g8
+  enhance_image_tag: true
+  static_file_support: false

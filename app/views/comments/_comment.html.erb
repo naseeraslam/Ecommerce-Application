@@ -1,0 +1,15 @@
+<div id="comment-<%= comment.id %>">
+  <% user= User.find(comment.user_id)%>
+  <%= user.first_name%>
+  [<%= comment.created_at.strftime("%I:%M %p") %>]
+  <%= comment.feedback%>
+  <%if user_signed_in?%>
+    <% if current_user.id == comment.user_id %>
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <div class='px-3'><%= button_to 'Delete',product_comment_path(@product,comment), method: :delete, class: 'btn btn-danger space' %></div>
+        <div class='px-3'><%= button_to 'Edit',edit_product_comment_path(@product,comment.id), method: :get, class: 'btn btn-warning' %></div>
+      </div>
+    <%end%>
+  <%end%>
+  <br>
+</div>

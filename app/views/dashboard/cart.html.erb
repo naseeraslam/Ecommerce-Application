@@ -1,0 +1,55 @@
+<% @stripe_refresh = true %>
+<h3>Shopping Cart</h3>
+<% if @cart.empty? %>
+  <p>No items in cart.</p>
+<% else %>
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Change Quantity</th>
+        <th>Set</th>
+        <th>Purchase Quantites</th>
+        <th>Total Price</th>
+        <th>Remove</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @sum =0%>
+      <%@name = []%>
+      <% @pd_ids=[]%>
+      <% @product_quantities=[]%>
+      <% @cart.zip(@quantities).each do |product,q| %>
+        <tr>
+          <% @name.push(product.product_name.to_s)%>
+          <% @pd_ids.push(product.id.to_i)%>
+          <%@product_quantities.push(q.to_i)%>
+          <td><%= product.product_name %></td>
+          <td><%= product.product_price %></td>
+          <%= form_with url: {action: :set_quantity}, remote: true do |f| %>
+            <td>
+              <div class="col-auto">
+                <%= f.number_field :quant,class:"form-control" , placeholder:"Put Quantity"%>
+              </div>
+            </td>
+            <%= f.hidden_field :pd_id, value: product.id %>
+            <td><%= f.submit 'Set Quantity'%></td>
+          <%end%>
+          <td><%= q%></td>
+          <td><%= (product.product_price) *q %></td>
+          <% @sum = @sum + (product.product_price) * q %>
+          <td><%= button_to 'Remove', remove_item_cart_dashboard_path(product),remote: true, method: :delete,class:"btn btn-dark" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <tr>
+    <p class="text-black fw-bold float-end">Total price = <%=@sum%></p>
+  </tr>
+  <% if user_signed_in? %>
+    <%= button_to 'Buy', checkout_index_path,params:{customer_name:current_user.first_name,total_price:@sum, name_list:@name,product_ids:@pd_ids,discount:0,user_id: current_user.id,quantities_list:@product_quantities} , remote:true,data: { disable_with: 'validating...' } ,class:"btn btn-success btn-lg"%>
+  <% else%>
+    <%= button_to 'Buy', new_user_session_path,class:"btn btn-success btn-lg"%>
+  <%end %>
+<% end %>

@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="card" style="width: 42rem;">
+    <%= image_tag @product.images[0]  ,class:"card-img-top" , size: "600x600"%>
+    <div class="card-body">
+      <h5 class="card-title"><%= @product.product_name %></h5>
+      <p class="card-text"><%= truncate(@product.product_description, :length => 275) %></p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><%= number_to_currency(@product.product_price) %></li>
+    </ul>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><%=(@product.product_serial_number) %> serial number</li>
+    </ul>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><%=(@product.quantity) %> <strong> avaialable items </strong></li>
+    </ul>
+    <div class="card-body">
+      <%= link_to 'Back', { controller: 'products', action: 'index'},class:"btn btn-primary card-link" %>
+    </div>
+  </div>
+</div>
+</div>

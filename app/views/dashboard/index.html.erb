@@ -1,0 +1,49 @@
+<% content_for :search do %>
+  <%= form_with url: search_dashboard_index_path,local: true,method: :get,class:"d-flex" do |f|%>
+    <%= f.text_field :product_name_cont,placeholder:"Search", data: {behaviour:"autocomplete"},class:"form-control me-2"%>
+    <%= f.button "Search", class:"btn btn-outline-success" %>
+  <% end%>
+<%end%>
+<div class="container">
+  <h3>User Products</h3>
+  <section>
+    <%  @products.each do |product| %>
+      <div class="row mb-4">
+        <div class="col-md-5 col-lg-3 col-xl-3">
+          <div class="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
+            <%= image_tag product.images[0]  ,class:"rounded float-start", size: "200x200" %>
+          </div>
+        </div>
+        <div class="col-md-7 col-lg-9 col-xl-9">
+          <div class="row">
+            <div class="col-lg-7 col-xl-7">
+              <h5><%= product.product_name %></h5>
+              <p class="mb-2 text-muted text-uppercase small"><%= product.product_description%></p>
+              <hr>
+              <p class="mb-lg-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam,
+                sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim perferendis
+                voluptates laboriosam. Distinctio, officia quis dolore quos sapiente tempore alias.</p>
+            </div>
+            <div class="col-lg-5 col-xl-5">
+              <h6 class="mb-3"><span><%= number_to_currency(product.product_price) %></span></h6>
+              <div class="my-4">
+                <% if @cart.include?(product) %>
+                  <p><%= button_to 'remove from cart', remove_from_cart_dashboard_path(product),remote:true, method: :delete,class:"btn btn-dark " %></p>
+                <% else %>
+                  <% if !user_signed_in? %>
+                    <p><%= button_to 'add to cart', add_to_cart_dashboard_path(product.id),remote:true, method: :post,class:"btn btn-dark" %></p>
+                  <%else%>
+                    <% if  current_user.id != product.user_id %>
+                      <p><%= button_to 'add to cart', add_to_cart_dashboard_path(product.id),remote:true, method: :post,class:"btn btn-dark" %></p>
+                    <%end%>
+                  <%end%>
+                <% end %>
+                <%= link_to 'Details', dashboard_path(product),class:"btn btn-primary " %></td>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <%= paginate @products ,class:"pagination" %>
+</section>
